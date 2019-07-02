@@ -1,6 +1,7 @@
 package com.example.android.androidskeletonapp.ui.splash;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.example.android.androidskeletonapp.R;
 
@@ -13,6 +14,7 @@ import io.reactivex.disposables.Disposable;
 public class SplashActivity extends AppCompatActivity {
 
     private Disposable disposable;
+    private Button mybutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class SplashActivity extends AppCompatActivity {
                     // TODO Toast error
                 })
                 .subscribe();
+        mybutton=findViewById(R.id.button1);
     }
 
     @Override
