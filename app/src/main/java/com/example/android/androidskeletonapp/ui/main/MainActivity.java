@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.hisp.dhis.android.core.arch.call.D2Progress;
 import org.hisp.dhis.android.core.common.Unit;
+import org.hisp.dhis.android.core.d2manager.D2Manager;
 import org.hisp.dhis.android.core.user.User;
 
 import java.text.MessageFormat;
@@ -198,7 +199,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private Observable<D2Progress> syncMetadataObservable() {
         // TODO Sync user metadata
-        return Observable.never();
+
+        return D2Manager.getD2().syncMetaData();
     }
 
     private void downloadData() {
@@ -214,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Observable<D2Progress> downloadDataObservable() {
         return Observable.merge(
                 // TODO Download trackedEntityInstances
+              //  D2Manager.getD2().trackedEntityModule().downloadTrackedEntityInstances(20).,
                 Observable.never(),
 
                 // TODO Aggregated data values
@@ -233,7 +236,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private Unit wipeDataCall() {
         // TODO Wipe data
-        return new Unit();
+        return  D2Manager.getD2().wipeModule().wipeMetadata();
+        //return new Unit();
     }
 
     @Override

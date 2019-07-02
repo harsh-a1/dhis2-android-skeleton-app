@@ -1,26 +1,32 @@
 package com.example.android.androidskeletonapp.data.service;
 
+import org.hisp.dhis.android.core.arch.call.D2Progress;
+import org.hisp.dhis.android.core.arch.call.internal.D2ProgressManager;
+import org.hisp.dhis.android.core.d2manager.D2Manager;
+
 public class SyncStatusHelper {
 
     // TODO implement count methods
 
     public static int programCount() {
-        return 0;
+        return D2Manager.getD2().programModule().programs.count();
+
+        //return 0;
     }
 
     public static int dataSetCount() {
-        return 0;
+        return D2Manager.getD2().dataSetModule().dataSets.count();
     }
 
     public static int trackedEntityInstanceCount() {
-        return 0;
+        return D2Manager.getD2().trackedEntityModule().trackedEntityInstances.count();
     }
 
     public static int singleEventCount() {
-        return 0;
+        return D2Manager.getD2().eventModule().events.count();
     }
 
     public static int dataValueCount() {
-        return 0;
+        return D2Manager.getD2().dataValueModule().dataValues.count();
     }
 }
