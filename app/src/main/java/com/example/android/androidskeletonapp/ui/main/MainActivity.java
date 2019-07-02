@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.hisp.dhis.android.core.program.Program;
 import org.hisp.dhis.android.core.user.User;
 
 import java.text.MessageFormat;
@@ -230,6 +231,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             wipeData();
         } else if (id == R.id.navExit) {
             compositeDisposable.add(logOut(this));
+        } else if (id == R.id.programList){
+            ActivityStarter.startActivity(this,ProgramsActivity.class,true);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawerLayout);
