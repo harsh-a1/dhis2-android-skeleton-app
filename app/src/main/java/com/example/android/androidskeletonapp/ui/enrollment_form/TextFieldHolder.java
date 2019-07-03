@@ -10,6 +10,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import androidx.annotation.NonNull;
 
+import static android.text.TextUtils.isEmpty;
+
 class TextFieldHolder extends FieldHolder {
 
     private final TextInputEditText editText;
@@ -47,5 +49,9 @@ class TextFieldHolder extends FieldHolder {
         }
 
         // TODO set initial value, enable if editable and add value listener for text changes
+        if (!isEmpty(fieldItem.getValue()))
+            editText.setText(fieldItem.getValue());
+        else
+            editText.setText(null);
     }
 }

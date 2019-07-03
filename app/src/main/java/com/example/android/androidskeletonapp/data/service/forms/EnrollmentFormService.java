@@ -56,11 +56,19 @@ public class EnrollmentFormService {
     public Flowable<Map<String, FormField>> getEnrollmentFormFields() {
 
         return Flowable.fromCallable(() -> {
-                    return new ArrayList<ProgramTrackedEntityAttribute>(); //TODO: replace with program attributes
+
+                return   d2.programModule().programs.uid(enrollmentRepository.get().program())
+                        .withAllChildren().get()
+                        .programTrackedEntityAttributes(); //TODO: replace with program attributes
                 }
         ).map(programAttributeList -> {
 
             //TODO for each programAttribute create and store a FormField Object into the fieldMap object
+            for (ProgramTrackedEntityAttribute programAttribute :programAttributeList)
+            {
+                
+            }
+
 
             return fieldMap;
         });
