@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.androidskeletonapp.R;
 import com.example.android.androidskeletonapp.data.Sdk;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FloatingActionButton syncMetadataButton;
     private FloatingActionButton syncDataButton;
     // TODO - private FloatingActionButton uploadDataButton;
+    private FloatingActionButton uploadDataButton;
 
     private TextView syncStatusText;
     private ProgressBar progressBar;
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         syncMetadataButton = findViewById(R.id.syncMetadataButton);
         syncDataButton = findViewById(R.id.syncDataButton);
         // TODO bind uploadDataButton to "uploadDataButton" view
+         uploadDataButton = findViewById(R.id.uploadDataButton);
 
         syncStatusText = findViewById(R.id.notificator);
         progressBar = findViewById(R.id.syncProgressBar);
@@ -114,7 +117,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         // TODO Listen to uploadDataButton and execute these actions:
+        uploadDataButton.setOnClickListener(view ->{
+            setSyncing();
+            Snackbar.make(view, "uploading data", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            syncStatusText.setText(R.string.uploading_data);
 
+          Observable.fromCallable(() -> Sdk.d2().trackedEntityModule().trackedEntityInstances.upload())
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread())
+                  .doOnComplete(() -> {
+                      setSyncingFinished();
+                  })
+                  .subscribe();
+
+        });
             // TODO Set syncing
             // TODO Show a snackbar to notify about the action
 
