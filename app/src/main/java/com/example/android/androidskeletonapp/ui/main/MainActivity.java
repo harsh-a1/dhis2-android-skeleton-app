@@ -1,5 +1,6 @@
 package com.example.android.androidskeletonapp.ui.main;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,9 @@ import com.google.android.material.snackbar.Snackbar;
 import org.hisp.dhis.android.core.user.User;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,7 +63,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         compositeDisposable = new CompositeDisposable();
 
         // TODO get user from cursor
-        User user = getUser();
+        //User user = getUser();
+        User user = null;
+// Direct database interaction
+        String query = "SELECT * FROM User" ;
+        try (Cursor cursor = Sdk.d2().databaseAdapter().query(query)) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                do {
+                    user = User.create(cursor);
+                }
+                while (cursor.moveToNext());
+            }
+            
+        }
         TextView greeting = findViewById(R.id.greeting);
         greeting.setText(String.format("Hi %s!", user.displayName()));
 
